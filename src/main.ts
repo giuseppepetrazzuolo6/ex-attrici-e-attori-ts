@@ -91,3 +91,27 @@ async function getActress(id: number): Promise<Actress | null> {
     return null;
   }
 }
+
+/*📌 Milestone 4
+Crea una funzione getAllActresses che chiama:
+
+GET /actresses
+La funzione deve restituire un array di oggetti Actress.
+
+Può essere anche un array vuoto. */
+
+async function getAllActresses(): Promise<Actress[]> {
+  try {
+    const response = await fetch("http://localhost:3333/actresses");
+
+    if (!response.ok) return [];
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) return [];
+
+    return data.filter(isActress);
+  } catch {
+    return [];
+  }
+}
